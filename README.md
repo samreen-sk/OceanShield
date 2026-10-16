@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OCEANSHIELD — Crowdsourced Ocean Hazard Reporting & Social Media Analytics
 
 > **Technical Blueprint & Production-Grade REST API Specification (SIH25039)**  
@@ -333,3 +334,7 @@ Contributing signal scores are stored directly on the report and incident record
 2. **Citizen Privacy**: Public and map endpoints mask individual reporter emails and identities.
 3. **No Blind Trust in Social Media**: Social media is treated strictly as unverified corroborating evidence.
 4. **Resilient Architecture**: If the Python AI service or email server is unreachable, citizen reports remain safely stored with automated fallback heuristics without data loss.
+=======
+# OceanShield
+
+>>>>>>> bd29f052a3ea1c925e56391de3b185035869d1e2
