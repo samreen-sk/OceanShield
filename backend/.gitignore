@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Uploads and temporary media
+uploads/*
+!uploads/.gitkeep
+
+# Testing and coverage
+coverage/
+.nyc_output/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
