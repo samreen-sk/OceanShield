@@ -124,19 +124,20 @@ const getMultimodalPrediction = async (text, imageUrl = null) => {
 
   if (imagePred && !imagePred.isFallback) {
     if (imagePred.hazard === textPred.hazard) {
-      combinedConfidence = Math.min(0.99, (textPred.confidence * 0.6) + (imagePred.confidence * 0.4) + 0.1);
+      // Documented fusion formula: 0.6*text + 0.4*image + 0.05, capped at 0.99
+      const fused = (textPred.confidence * 0.6) + (imagePred.confidence * 0.4) + 0.05;
+      // Corroborating evidence should never reduce confidence compared with text alone
+      combinedConfidence = Math.min(0.99, Math.max(textPred.confidence, fused));
     } else {
-      // Disagreement: Pick highest individual confidence
-      if (imagePred.confidence > textPred.confidence) {
-        predictedHazard = imagePred.hazard;
-        combinedConfidence = imagePred.confidence * 0.7; // slight penalty for modality disagreement
-      }
+      // Conflicting text and image: text takes precedence
+      predictedHazard = textPred.hazard;
+      combinedConfidence = textPred.confidence;
     }
   }
 
   return {
     hazard: predictedHazard,
-    confidence: parseFloat(combinedConfidence.toFixed(2)),
+    confidence: parseFloat(combinedConfidence.toFixed(4)),
     textPrediction: textPred,
     imagePrediction: imagePred
   };

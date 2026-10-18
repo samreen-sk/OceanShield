@@ -91,18 +91,18 @@ def predict_image(req: ImagePredictionRequest):
         raise HTTPException(status_code=400, detail="imageUrl is required")
 
     # In MVP, simulate CNN vision feature extraction / transfer learning inference
-    # Baseline returns plausible vision distribution
-    probs = {cls: 0.05 for cls in HAZARD_CLASSES}
+    # Baseline returns plausible vision distribution matching text inference scale
+    probs = {cls: 0.02 for cls in HAZARD_CLASSES}
     lower_url = req.imageUrl.lower()
     
     if "oil" in lower_url:
-        probs["OIL_SPILL"] = 0.88
+        probs["OIL_SPILL"] = 0.92
     elif "plastic" in lower_url:
-        probs["PLASTIC_POLLUTION"] = 0.85
+        probs["PLASTIC_POLLUTION"] = 0.89
     elif "fish" in lower_url or "dead" in lower_url:
-        probs["DEAD_MARINE_LIFE"] = 0.86
+        probs["DEAD_MARINE_LIFE"] = 0.91
     else:
-        probs["OTHER"] = 0.60
+        probs["OTHER"] = 0.65
 
     total = sum(probs.values())
     normalized = {k: round(v / total, 4) for k, v in probs.items()}
@@ -128,9 +128,13 @@ def predict_multimodal(req: MultimodalPredictionRequest):
         image_pred = image_res["prediction"]
 
     if image_pred and image_pred["hazard"] == text_pred["hazard"]:
-        combined_conf = min(0.99, round((text_pred["confidence"] * 0.6) + (image_pred["confidence"] * 0.4) + 0.05, 4))
+        # Documented fusion formula: 0.6*text + 0.4*image + 0.05, capped at 0.99
+        fused = round((text_pred["confidence"] * 0.6) + (image_pred["confidence"] * 0.4) + 0.05, 4)
+        # Corroborating evidence should never reduce confidence compared with text alone
+        combined_conf = min(0.99, max(text_pred["confidence"], fused))
         chosen_hazard = text_pred["hazard"]
     else:
+        # Conflicting text and image: text takes precedence
         chosen_hazard = text_pred["hazard"]
         combined_conf = text_pred["confidence"]
 
