@@ -8,45 +8,8 @@
 
 ## 1. System Architecture
 
-```text
-                  ┌──────────────────────────────────────────────┐
-                  │          Citizen Web / Mobile Client         │
-                  └──────────────────────┬───────────────────────┘
-                                         │
-                                       CORS
-                                         │
-                                         ▼
-                  ┌──────────────────────────────────────────────┐
-                  │          Node.js / Express REST API          │
-                  │   - Helmet, Multi-tier Rate Limiting, RBAC   │
-                  │   - Standardized JSON responses, Error Mw    │
-                  └──────┬───────────────┬───────────────┬───────┘
-                         │               │               │
-        Geospatial / Data│          REST │          Queue│
-                         ▼               ▼               ▼
-                  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-                  │   MongoDB   │ │  Python AI  │ │    Redis    │
-                  │  (2dsphere) │ │ Microservice│ │ (BullMQ /   │
-                  │ - Reports   │ │ - Text NLP  │ │  Workers)   │
-                  │ - Incidents │ │ - Vision CNN│ └─────────────┘
-                  │ - Users     │ │ - Multimodal│
-                  │ - Evidence  │ └─────────────┘
-                  │ - Audit Log │
-                  └─────────────┘
-                         │
-                         ▼
-        ┌──────────────────────────────────┐
-        │   Background Analysis Pipeline   │
-        │  1. Multimodal AI Classification │
-        │  2. Proximity Duplicate Detection│
-        │  3. Multi-Signal Evidence Fusion │
-        │  4. Spatiotemporal Clustering    │
-        │  5. Priority Severity Engine     │
-        │  6. High/Critical Alert Dispatch │
-        └──────────────────────────────────┘
-```
+<img width="1950" height="1770" alt="architecture-oceanshield" src="https://github.com/user-attachments/assets/cca3a6db-d712-4481-86a8-e994faa06218" />
 
----
 
 ## 2. Project Directory Structure
 
