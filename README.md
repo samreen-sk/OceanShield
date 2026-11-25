@@ -298,7 +298,7 @@ Contributing signal scores are stored directly on the report and incident record
 ## 10. Project Reflection
 
 ### What We Set Out to Build
-OceanShield was built for SIH25039 with one goal: turn scattered citizen observations of ocean hazards (oil spills, plastic pollution, algal blooms, ship incidents and more) into structured, prioritised, actionable information for authorities. Instead of treating each report in isolation, we built a pipeline that classifies, deduplicates, clusters and scores reports so that responders see incidents rather than noise.
+OceanShield was built for one goal: turn scattered citizen observations of ocean hazards (oil spills, plastic pollution, algal blooms, ship incidents and more) into structured, prioritised, actionable information for authorities. Instead of treating each report in isolation, we built a pipeline that classifies, deduplicates, clusters and scores reports so that responders see incidents rather than noise.
 
 ### What We Learned
 - **Designing a distributed system end to end.** Coordinating a Node.js/Express API, a Python FastAPI AI microservice, MongoDB and Redis (BullMQ) with Docker Compose taught us how services communicate, fail and recover independently.
