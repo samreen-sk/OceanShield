@@ -293,3 +293,41 @@ Contributing signal scores are stored directly on the report and incident record
 3. **No Blind Trust in Social Media**: Social media is treated strictly as unverified corroborating evidence.
 4. **Resilient Architecture**: If the Python AI service or email server is unreachable, citizen reports remain safely stored with automated fallback heuristics without data loss.
 =======
+
+```
+## 10. Project Reflection
+
+### What We Set Out to Build
+OceanShield was built for SIH25039 with one goal: turn scattered citizen observations of ocean hazards (oil spills, plastic pollution, algal blooms, ship incidents and more) into structured, prioritised, actionable information for authorities. Instead of treating each report in isolation, we built a pipeline that classifies, deduplicates, clusters and scores reports so that responders see incidents rather than noise.
+
+### What We Learned
+- **Designing a distributed system end to end.** Coordinating a Node.js/Express API, a Python FastAPI AI microservice, MongoDB and Redis (BullMQ) with Docker Compose taught us how services communicate, fail and recover independently.
+- **Geospatial data is its own discipline.** Working with MongoDB `2dsphere` indexes, Haversine distance and centroid calculations showed us how location accuracy affects duplicate detection and clustering.
+- **Asynchronous processing matters.** Moving AI analysis, alert dispatch and social evidence ingestion into background jobs kept the API responsive and made the system far more robust.
+- **Security is a design decision, not an add-on.** Helmet, JWT access/refresh tokens, RBAC, multi-tier rate limiting, secure file upload validation and audit logging shaped how we structured the code from the start.
+- **Explainability builds trust.** Our confidence score is a transparent weighted fusion of image, text, spatial, temporal and source signals, minus duplicate risk. Storing each signal alongside the final score made results easier to debug and justify.
+
+### Challenges We Faced
+- Deciding how to detect duplicate and related reports using distance, time and text similarity without merging genuinely separate incidents.
+- Keeping the system useful when dependencies fail, so reports stay safely stored even if the AI service or email server is unreachable.
+- Balancing openness with privacy: public map and incident endpoints had to stay useful while masking reporter identities.
+- Handling social media responsibly, as corroborating evidence only and never as blind truth.
+- Keeping a consistent structure across controllers, services, validators and utilities as the codebase grew, using standardized responses and centralized error handling.
+
+### Limitations
+- AI predictions are advisory only and have not been scientifically validated; final decisions stay with authorised authorities.
+- The AI microservice is a lightweight baseline (FastAPI with scikit-learn), not a production-trained vision or multimodal model.
+- Confidence weights are hand-tuned rather than learned from labelled ground-truth data.
+- The system has not been load-tested at real-world scale, and the test suite covers the API but not every edge case.
+
+### Future Work
+- Train and evaluate dedicated vision and NLP models on real labelled ocean-hazard data, using the feedback collected through `/api/v1/feedback` as ground truth.
+- Learn the fusion weights from data instead of setting them manually.
+- Build a mobile-first client with offline report drafting for coastal areas with poor connectivity.
+- Add real-time alerts (WebSockets or push notifications) and multilingual report support.
+- Integrate official sources such as satellite imagery, buoy data and cyclone advisories to corroborate citizen reports.
+- Add CI/CD, broader automated tests and monitoring for production deployment.
+
+### Closing Thoughts
+OceanShield showed us that building something useful for public safety takes more than a working model: it needs reliable infrastructure, careful security, privacy-aware design and honesty about what the AI can and cannot claim. We're proud of the architecture we put together, and we see this as a strong foundation to keep improving.
+```
