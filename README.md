@@ -1,11 +1,6 @@
 
 # OCEANSHIELD — Crowdsourced Ocean Hazard Reporting & Social Media Analytics
 
-> **Technical Blueprint & Production-Grade REST API Specification (SIH25039)**  
-> Built with Node.js, Express.js, MongoDB (Geospatial 2dsphere), Python FastAPI AI Microservice, and Docker.
-
----
-
 ## 1. System Architecture
 
 <img width="1950" height="1770" alt="architecture-oceanshield" src="https://github.com/user-attachments/assets/cca3a6db-d712-4481-86a8-e994faa06218" />
