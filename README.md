@@ -19,7 +19,7 @@ OcienShield/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   ├── constants.js          # Hazard enums, Roles, Statuses, Audit actions
+│   │   │   ├── constants.js          # Hazard enums, Roles, Statuses, Audit actions.....
 │   │   │   ├── cors.js               # Whitelisted CORS policy
 │   │   │   ├── db.js                 # Mongoose connection & lifecycle events
 │   │   │   └── env.js                # Environment validator with sensible fallbacks
