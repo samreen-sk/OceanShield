@@ -294,7 +294,7 @@ Contributing signal scores are stored directly on the report and incident record
 4. **Resilient Architecture**: If the Python AI service or email server is unreachable, citizen reports remain safely stored with automated fallback heuristics without data loss.
 =======
 
-```
+
 ## 10. Project Reflection
 
 ### What We Set Out to Build
@@ -330,4 +330,3 @@ OceanShield was built for SIH25039 with one goal: turn scattered citizen observa
 
 ### Closing Thoughts
 OceanShield showed us that building something useful for public safety takes more than a working model: it needs reliable infrastructure, careful security, privacy-aware design and honesty about what the AI can and cannot claim. We're proud of the architecture we put together, and we see this as a strong foundation to keep improving.
-```
